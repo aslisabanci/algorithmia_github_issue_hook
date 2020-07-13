@@ -21,13 +21,13 @@ path:
     description: 'directory name for the local project stored in /github/workspace due to an "actions/checkout" command'
     required: true
 metric:
-    description: "TBU"
+    description: Evaluation metric of the model on the test set
     required: true
 threshold:
-    description: "TBU"
+    description: Threshold value for the test metric, under which the algorithm creates a Github issue
     required: true
 checkpoints:
-    description: "TBU"
+    description: The path of the checkpoint weights of the model
     required: true
 ```
 
@@ -41,7 +41,7 @@ name: Algorithmia-Github Issue Hook
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/0 8 * * *"
 
 jobs:
   algorithmia-ci:
@@ -54,7 +54,7 @@ jobs:
           ref: ${{github.sha}}
           path: algorithm
       - name: Algorithmia-Github Issue Hook
-        uses: aslisabanci/algorithmia-github-issue-hook@0.0.1
+        uses: aslisabanci/algorithmia_github_issue_hook@v0.1-alpha
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
@@ -64,5 +64,5 @@ jobs:
           metric: accuracy
           threshold: 0.85
           checkpoints: data://asli/checkpoints/fashion_mnist_checkpoint
-
+          
 ```
