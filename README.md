@@ -33,7 +33,7 @@ checkpoints:
 
 
 # Example workflow
-The workflow below shows a periodic run setup, scheduled to run every 10 minutes. 
+The workflow below shows a periodic run setup, scheduled to run at minute 0 past every 12th hour.
 Checkout my sample repository https://github.com/aslisabanci/algorithmia_issue_reporter to see this in action.
 
 ```
@@ -41,7 +41,7 @@ name: Algorithmia-Github Issue Hook
 
 on:
   schedule:
-    - cron: "*/0 8 * * *"
+    - cron: "0 */12 * * *
 
 jobs:
   algorithmia-ci:
