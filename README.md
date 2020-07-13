@@ -1,5 +1,5 @@
 # Algorithmia-Github Issue Hook
-Inspired by [Algorithmia CI/CD](https://github.com/marketplace/actions/algorithmia-ci-cd), I created this Github action as a POC when playing with Github Actions and Algorithmia.
+Inspired by [Algorithmia CI/CD](https://github.com/marketplace/actions/algorithmia-ci-cd), I created this Github action as a POC when playing with Github Actions and Algorithmia. 
 
 If you have a model that you evaluate periodically against your configured metric and a threshold, and you want to be notified of its performance drops; you can incorporate this action as a workflow. 
 
@@ -27,7 +27,7 @@ threshold:
     description: Threshold value for the test metric, under which the algorithm creates a Github issue
     required: true
 checkpoints:
-    description: The path of the checkpoint weights of the model
+    description: The path of the checkpoints to restore your model from
     required: true
 ```
 
@@ -63,6 +63,12 @@ jobs:
           path: algorithm
           metric: accuracy
           threshold: 0.85
-          checkpoints: data://asli/checkpoints/fashion_mnist_checkpoint
+          checkpoints: ./checkpoints/fashion_mnist_checkpoint
           
 ```
+
+# Improvement ideas
+Since this is only a POC hack to play with and learn more about Github Actions and Algorithmia, a few things can be done differently for normal use cases. 
+- Instead of using model checkpoints, you can restore your model directly from a saved model. Restoring a model from saved weights requires that you first create a model with the same architecture as the original model - so you may not prefer that. 
+- You can update the workflow to make use of multiple performance metrics (and multiple thresholds), and not just a single one
+- You can apply this "issue reporting" logic to check your model's input data as well. If the distribution or the quality of your data changes, you can again get notified of this through your responsible algorithm's bug reports :]
