@@ -1,0 +1,31 @@
+# action.yml
+name: "Algorithmia-Github Issue Hook"
+description: "An opportunity for your algorithms to report back their problems as issues on Github"
+branding:
+  icon: "alert-circle"
+  color: "yellow"
+inputs:
+  api_key:
+    description: "Algorithmia API key"
+    required: true
+  path:
+    description: 'Directory name for the local project stored in /github/workspace due to an "actions/checkout" command'
+    required: true
+  metric:
+    description: "TBU"
+    required: true
+  threshold:
+    description: "TBU"
+    required: true
+  checkpoints:
+    description: "TBU"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.api_key }}
+    - ${{ inputs.path }}
+    - ${{ inputs.metric }}
+    - ${{ inputs.threshold }}
+    - ${{ inputs.checkpoints }}
